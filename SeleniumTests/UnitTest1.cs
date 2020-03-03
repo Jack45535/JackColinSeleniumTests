@@ -24,7 +24,7 @@ namespace SeleniumTodos
 
         [TestMethod]
         [TestCategory("Chrome")]
-        public void TheBingSearchTest()
+        public void CreateNew()
         {
             driver.Navigate().GoToUrl(appURL + "/");
             driver.FindElement(By.LinkText("Create New")).Click();
@@ -33,8 +33,22 @@ namespace SeleniumTodos
             driver.FindElement(By.Id("Description")).SendKeys("Test");
             driver.FindElement(By.XPath("//div[2]/div")).Click();
             driver.FindElement(By.XPath("//input[@value='Create']")).Click();
+            driver.FindElement(By.XPath("//*[contains(.,'Test')]"));
         }
 
+        [TestMethod]
+        [TestCategory("Chrome")]
+        public void CreateNewFail()
+        {
+            driver.Navigate().GoToUrl(appURL + "/");
+            driver.FindElement(By.LinkText("Create New")).Click();
+            driver.FindElement(By.Id("Description")).Click();
+            driver.FindElement(By.Id("Description")).Clear();
+            driver.FindElement(By.Id("Description")).SendKeys("Test");
+            driver.FindElement(By.XPath("//div[2]/div")).Click();
+            driver.FindElement(By.XPath("//input[@value='Create']")).Click();
+            driver.FindElement(By.XPath("//*[contains(.,'I will fail you!')]"));
+        }
         /// <summary>
         ///Gets or sets the test context which provides
         ///information about and functionality for the current test run.
